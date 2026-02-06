@@ -9,8 +9,10 @@ if (strpos($uri, '/api/') === 0) {
     exit;
 }
 
-// Static files
-$staticFile = __DIR__ . '/frontend/public' . $uri;
+// Static files serve karo
+$publicDir = __DIR__ . '/frontend/public';
+$staticFile = $publicDir . $uri;
+
 if (file_exists($staticFile) && is_file($staticFile)) {
     $ext = pathinfo($staticFile, PATHINFO_EXTENSION);
     $mimeTypes = [
@@ -21,7 +23,8 @@ if (file_exists($staticFile) && is_file($staticFile)) {
         'png' => 'image/png',
         'jpg' => 'image/jpeg',
         'gif' => 'image/gif',
-        'svg' => 'image/svg+xml'
+        'svg' => 'image/svg+xml',
+        'ico' => 'image/x-icon'
     ];
     if (isset($mimeTypes[$ext])) {
         header('Content-Type: ' . $mimeTypes[$ext]);
@@ -30,5 +33,11 @@ if (file_exists($staticFile) && is_file($staticFile)) {
     exit;
 }
 
-// Default: index.html
-readfile(__DIR__ . '/frontend/public/index.html');
+// Check for .html files
+if (file_exists($publicDir . $uri . '.html')) {
+    readfile($publicDir . $uri . '.html');
+    exit;
+}
+
+// Default: index.html (SPA routing)
+readfile($publicDir . '/index.html');
