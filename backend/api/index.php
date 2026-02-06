@@ -9,10 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-// Database connection
 $dbUrl = getenv('DATABASE_URL');
 if (!$dbUrl) {
-    echo json_encode(['error' => 'Database not configured', 'status' => 'OK']);
+    echo json_encode(['error' => 'Database not configured']);
     exit;
 }
 
@@ -27,7 +26,7 @@ try {
     $pdo = new PDO("pgsql:host=$host;port=$port;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    echo json_encode(['error' => 'Database connection failed', 'message' => $e->getMessage()]);
+    echo json_encode(['error' => 'DB connection failed']);
     exit;
 }
 
@@ -36,70 +35,38 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($path) {
     case 'health':
-        echo json_encode(['status' => 'OK', 'database' => 'connected', 'timestamp' => time()]);
+        echo json_encode(['status' => 'OK']);
         break;
-        
     case 'login':
-        if ($method !== 'POST') {
-            echo json_encode(['error' => 'Method not allowed']);
-            break;
-        }
         $data = json_decode(file_get_contents('php://input'), true);
         $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$data['email'] ?? '']);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        
         if ($user && password_verify($data['password'] ?? '', $user['password'])) {
-            echo json_encode([
-                'success' => true,
-                'token' => bin2hex(random_bytes(32)),
-                'user' => [
-                    'id' => $user['id'],
-                    'email' => $user['email'],
-                    'first_name' => $user['first_name'],
-                    'last_name' => $user['last_name'],
-                    'role' => $user['role']
-                ]
-            ]);
+            echo json_encode(['success' => true, 'token' => bin2hex(random_bytes(32)), 'user' => ['id' => $user['id'], 'email' => $user['email'], 'first_name' => $user['first_name'], 'last_name' => $user['last_name'], 'role' => $user['role']]]);
         } else {
             echo json_encode(['error' => 'Invalid credentials']);
         }
         break;
-        
     case 'register':
-        if ($method !== 'POST') {
-            echo json_encode(['error' => 'Method not allowed']);
-            break;
-        }
         $data = json_decode(file_get_contents('php://input'), true);
         $stmt = $pdo->prepare("INSERT INTO users (email, password, first_name, last_name, role) VALUES (?, ?, ?, ?, ?)");
         $hashedPassword = password_hash($data['password'], PASSWORD_BCRYPT);
         try {
-            $stmt->execute([
-                $data['email'], 
-                $hashedPassword, 
-                $data['first_name'] ?? '', 
-                $data['last_name'] ?? '', 
-                $data['role'] ?? 'student'
-            ]);
+            $stmt->execute([$data['email'], $hashedPassword, $data['first_name'] ?? '', $data['last_name'] ?? '', $data['role'] ?? 'student']);
             echo json_encode(['success' => true, 'user_id' => $pdo->lastInsertId()]);
         } catch (PDOException $e) {
-            echo json_encode(['error' => 'Email already exists']);
+            echo json_encode(['error' => 'Email exists']);
         }
         break;
-        
     case 'courses':
         $stmt = $pdo->query("SELECT * FROM courses");
-        $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode(['success' => true, 'courses' => $courses]);
+        echo json_encode(['success' => true, 'courses' => $stmt->fetchAll(PDO::FETCH_ASSOC)]);
         break;
-        
     case 'internships':
         $stmt = $pdo->query("SELECT * FROM internships");
-        $internships = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode(['success' => true, 'internships' => $internships]);
+        echo json_encode(['success' => true, 'internships' => $stmt->fetchAll(PDO::FETCH_ASSOC)]);
         break;
-        
     default:
-        echo json_encode(['error' => 'Endpoint not found', 'path' => $path]);
+        echo json_encode(['error' => 'Not found']);
 }
