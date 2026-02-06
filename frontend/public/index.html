@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigitalEdgeSolutions - Where Learning Meets Opportunity</title>
+    <meta name="description" content="Complete Learn → Intern → Earn ecosystem. Master in-demand skills, get real-world experience, and launch your career.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary: #1E3A8A;
+            --secondary: #06B6D4;
+            --accent-start: #8B5CF6;
+            --accent-end: #EC4899;
+            --dark-base: #0F172A;
+            --text-light: #E2E8F0;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #0F172A 100%);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+        }
+        
+        /* Neon Button */
+        .neon-btn {
+            background: linear-gradient(135deg, var(--secondary) 0%, #0891B2 100%);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .neon-btn:hover {
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.8);
+            transform: translateY(-2px);
+        }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-start) 0%, var(--accent-end) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Glow Effect */
+        .glow {
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+        }
+        
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Pulse Animation */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(6, 182, 212, 0.8); }
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+        
+        /* Gradient Border */
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(135deg, var(--dark-base) 0%, #1E293B 100%);
+            border-radius: 1rem;
+        }
+        
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg, var(--accent-start) 0%, var(--accent-end) 100%);
+            border-radius: inherit;
+            z-index: -1;
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--dark-base);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--accent-start) 0%, var(--accent-end) 100%);
+            border-radius: 4px;
+        }
+        
+        /* Particle Canvas */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* Navigation */
+        .nav-scrolled {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Counter Animation */
+        .counter {
+            font-variant-numeric: tabular-nums;
+        }
+        
+        /* Service Card Hover */
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.25);
+        }
+        
+        /* Tech Stack Icons */
+        .tech-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .tech-icon:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 10px rgba(6, 182, 212, 0.8));
+        }
+        
+        /* Testimonial Card */
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Marquee */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .marquee {
+            animation: marquee 30s linear infinite;
+        }
+        
+        .marquee:hover {
+            animation-play-state: paused;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        /* Loading Skeleton */
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        .skeleton {
+            background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Particle Background -->
+    <canvas id="particles-canvas"></canvas>
+    
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
+                        <i class="fas fa-graduation-cap text-white text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold gradient-text">DigitalEdge</span>
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#courses" class="text-gray-300 hover:text-white transition-colors">Courses</a>
+                    <a href="#internships" class="text-gray-300 hover:text-white transition-colors">Internships</a>
+                    <a href="#portfolio" class="text-gray-300 hover:text-white transition-colors">Portfolio</a>
+                    <a href="#team" class="text-gray-300 hover:text-white transition-colors">Team</a>
+                    <a href="#blog" class="text-gray-300 hover:text-white transition-colors">Blog</a>
+                </div>
+                
+                <!-- CTA Buttons -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="/login" class="text-gray-300 hover:text-white transition-colors">Sign In</a>
+                    <a href="/register" class="neon-btn px-6 py-2.5 rounded-full text-white font-medium">
+                        Get Started
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white p-2">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu fixed inset-y-0 right-0 w-80 bg-gray-900 z-50 p-6">
+        <button id="close-menu-btn" class="absolute top-6 right-6 text-white">
+            <i class="fas fa-times text-2xl"></i>
+        </button>
+        <div class="mt-16 space-y-6">
+            <a href="#courses" class="block text-xl text-gray-300 hover:text-white">Courses</a>
+            <a href="#internships" class="block text-xl text-gray-300 hover:text-white">Internships</a>
+            <a href="#portfolio" class="block text-xl text-gray-300 hover:text-white">Portfolio</a>
+            <a href="#team" class="block text-xl text-gray-300 hover:text-white">Team</a>
+            <a href="#blog" class="block text-xl text-gray-300 hover:text-white">Blog</a>
+            <hr class="border-gray-700">
+            <a href="/login" class="block text-xl text-gray-300 hover:text-white">Sign In</a>
+            <a href="/register" class="neon-btn block text-center px-6 py-3 rounded-full text-white font-medium">
+                Get Started
+            </a>
+        </div>
+    </div>
+    
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Background Effects -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-500/10 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <!-- Badge -->
+            <div data-aos="fade-down" class="inline-flex items-center space-x-2 glass-card px-4 py-2 mb-8">
+                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                <span class="text-sm text-gray-300">Now enrolling for 2024 cohort</span>
+            </div>
+            
+            <!-- Headline -->
+            <h1 data-aos="fade-up" data-aos-delay="100" class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                Where <span class="gradient-text">Learning</span><br>
+                Meets <span class="gradient-text">Opportunity</span>
+            </h1>
+            
+            <!-- Subheadline -->
+            <p data-aos="fade-up" data-aos-delay="200" class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-10">
+                Master in-demand skills through expert-led courses. Get real-world experience through internships. 
+                Launch your dream career with guaranteed placements.
+            </p>
+            
+            <!-- CTA Buttons -->
+            <div data-aos="fade-up" data-aos-delay="300" class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+                <a href="/courses" class="neon-btn px-8 py-4 rounded-full text-white font-semibold text-lg flex items-center space-x-2">
+                    <span>Explore Courses</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#how-it-works" class="glass-card px-8 py-4 rounded-full text-white font-semibold text-lg hover:bg-white/10 transition-colors flex items-center space-x-2">
+                    <i class="fas fa-play-circle"></i>
+                    <span>Watch Demo</span>
+                </a>
+            </div>
+            
+            <!-- Stats -->
+            <div data-aos="fade-up" data-aos-delay="400" class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold gradient-text counter" data-target="500">0</div>
+                    <div class="text-gray-400 mt-2">Projects</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold gradient-text counter" data-target="10000">0</div>
+                    <div class="text-gray-400 mt-2">Students</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold gradient-text counter" data-target="100">0</div>
+                    <div class="text-gray-400 mt-2">Clients</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold gradient-text counter" data-target="25">0</div>
+                    <div class="text-gray-400 mt-2">Countries</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-gray-400 text-2xl"></i>
+        </div>
+    </section>
+    
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 data-aos="fade-up" class="text-4xl md:text-5xl font-bold mb-4">
+                    Your Journey to <span class="gradient-text">Success</span>
+                </h2>
+                <p data-aos="fade-up" data-aos-delay="100" class="text-xl text-gray-400">
+                    Three simple steps to transform your career
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div data-aos="fade-up" data-aos-delay="100" class="glass-card p-8 text-center relative">
+                    <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                        1
+                    </div>
+                    <div class="mt-6">
+                        <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-cyan-400/20 to-blue-600/20 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-graduation-cap text-4xl text-cyan-400"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Learn</h3>
+                        <p class="text-gray-400">
+                            Enroll in industry-relevant courses designed by experts. 
+                            Learn at your own pace with hands-on projects.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div data-aos="fade-up" data-aos-delay="200" class="glass-card p-8 text-center relative">
+                    <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                        2
+                    </div>
+                    <div class="mt-6">
+                        <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-purple-400/20 to-pink-600/20 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-briefcase text-4xl text-purple-400"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Intern</h3>
+                        <p class="text-gray-400">
+                            Apply your skills in real-world projects. 
+                            Work with top companies and build your portfolio.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div data-aos="fade-up" data-aos-delay="300" class="glass-card p-8 text-center relative">
+                    <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                        3
+                    </div>
+                    <div class="mt-6">
+                        <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-green-400/20 to-emerald-600/20 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-trophy text-4xl text-green-400"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Earn</h3>
+                        <p class="text-gray-400">
+                            Get certified and land your dream job. 
+                            Join our alumni network of successful professionals.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Courses Section -->
+    <section id="courses" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
+                <div>
+                    <h2 data-aos="fade-up" class="text-4xl md:text-5xl font-bold mb-4">
+                        Explore Our <span class="gradient-text">Courses</span>
+                    </h2>
+                    <p data-aos="fade-up" data-aos-delay="100" class="text-xl text-gray-400">
+                        50+ courses across 10+ domains
+                    </p>
+                </div>
+                <a data-aos="fade-up" data-aos-delay="200" href="/courses" class="mt-6 md:mt-0 text-cyan-400 hover:text-cyan-300 flex items-center space-x-2">
+                    <span>View All Courses</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <!-- Course Categories -->
+            <div data-aos="fade-up" data-aos-delay="300" class="flex flex-wrap gap-3 mb-10">
+                <button class="category-btn active px-5 py-2 rounded-full bg-cyan-500 text-white text-sm font-medium" data-category="all">All</button>
+                <button class="category-btn px-5 py-2 rounded-full glass-card text-gray-300 hover:text-white text-sm font-medium transition-colors" data-category="development">Development</button>
+                <button class="category-btn px-5 py-2 rounded-full glass-card text-gray-300 hover:text-white text-sm font-medium transition-colors" data-category="ai">AI & Data Science</button>
+                <button class="category-btn px-5 py-2 rounded-full glass-card text-gray-300 hover:text-white text-sm font-medium transition-colors" data-category="security">Cyber Security</button>
+                <button class="category-btn px-5 py-2 rounded-full glass-card text-gray-300 hover:text-white text-sm font-medium transition-colors" data-category="design">Design</button>
+                <button class="category-btn px-5 py-2 rounded-full glass-card text-gray-300 hover:text-white text-sm font-medium transition-colors" data-category="marketing">Marketing</button>
+            </div>
+            
+            <!-- Course Cards -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Course 1 -->
+                <div data-aos="fade-up" data-aos-delay="100" class="course-card glass-card overflow-hidden group" data-category="development">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=600&h=400&fit=crop" alt="React Course" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-4 left-4">
+                            <span class="px-3 py-1 bg-cyan-500 text-white text-xs font-medium rounded-full">Bestseller</span>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center space-x-2 mb-3">
+                            <span class="text-xs text-cyan-400 font-medium">Development</span>
+                            <span class="text-gray-600">•</span>
+                            <span class="text-xs text-gray-400">40 hours</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Full Stack React & Node.js</h3>
+                        <p class="text-gray-400 text-sm mb-4">Master modern web development with React, Node.js, and MongoDB.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <span class="text-sm font-medium">4.9</span>
+                                <span class="text-gray-500 text-sm">(2.5k)</span>
+                            </div>
+                            <span class="text-cyan-400 font-bold">$49.99</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 2 -->
+                <div data-aos="fade-up" data-aos-delay="200" class="course-card glass-card overflow-hidden group" data-category="ai">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop" alt="AI Course" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-4 left-4">
+                            <span class="px-3 py-1 bg-purple-500 text-white text-xs font-medium rounded-full">New</span>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center space-x-2 mb-3">
+                            <span class="text-xs text-purple-400 font-medium">AI & Data Science</span>
+                            <span class="text-gray-600">•</span>
+                            <span class="text-xs text-gray-400">60 hours</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Machine Learning Mastery</h3>
+                        <p class="text-gray-400 text-sm mb-4">Build AI models with Python, TensorFlow, and real-world datasets.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <span class="text-sm font-medium">4.8</span>
+                                <span class="text-gray-500 text-sm">(1.8k)</span>
+                            </div>
+                            <span class="text-cyan-400 font-bold">$79.99</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 3 -->
+                <div data-aos="fade-up" data-aos-delay="300" class="course-card glass-card overflow-hidden group" data-category="security">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=400&fit=crop" alt="Cyber Security" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center space-x-2 mb-3">
+                            <span class="text-xs text-green-400 font-medium">Cyber Security</span>
+                            <span class="text-gray-600">•</span>
+                            <span class="text-xs text-gray-400">50 hours</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Ethical Hacking Bootcamp</h3>
+                        <p class="text-gray-400 text-sm mb-4">Learn penetration testing, Kali Linux, and security auditing.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <span class="text-sm font-medium">4.9</span>
+                                <span class="text-gray-500 text-sm">(3.2k)</span>
+                            </div>
+                            <span class="text-cyan-400 font-bold">$89.99</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 4 -->
+                <div data-aos="fade-up" data-aos-delay="400" class="course-card glass-card overflow-hidden group" data-category="design">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=400&fit=crop" alt="UI/UX Design" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center space-x-2 mb-3">
+                            <span class="text-xs text-pink-400 font-medium">Design</span>
+                            <span class="text-gray-600">•</span>
+                            <span class="text-xs text-gray-400">35 hours</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">UI/UX Design Masterclass</h3>
+                        <p class="text-gray-400 text-sm mb-4">Create stunning interfaces with Figma, user research, and prototyping.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <span class="text-sm font-medium">4.7</span>
+                                <span class="text-gray-500 text-sm">(1.5k)</span>
+                            </div>
+                            <span class="text-cyan-400 font-bold">$59.99</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 5 -->
+                <div data-aos="fade-up" data-aos-delay="500" class="course-card glass-card overflow-hidden group" data-category="development">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=400&fit=crop" alt="Python" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center space-x-2 mb-3">
+                            <span class="text-xs text-cyan-400 font-medium">Development</span>
+                            <span class="text-gray-600">•</span>
+                            <span class="text-xs text-gray-400">45 hours</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Python for Data Science</h3>
+                        <p class="text-gray-400 text-sm mb-4">Analyze data with Pandas, NumPy, and create visualizations.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <span class="text-sm font-medium">4.8</span>
+                                <span class="text-gray-500 text-sm">(2.1k)</span>
+                            </div>
+                            <span class="text-cyan-400 font-bold">$69.99</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 6 -->
+                <div data-aos="fade-up" data-aos-delay="600" class="course-card glass-card overflow-hidden group" data-category="marketing">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop" alt="Digital Marketing" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center space-x-2 mb-3">
+                            <span class="text-xs text-orange-400 font-medium">Marketing</span>
+                            <span class="text-gray-600">•</span>
+                            <span class="text-xs text-gray-400">30 hours</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Digital Marketing Pro</h3>
+                        <p class="text-gray-400 text-sm mb-4">Master SEO, SEM, social media marketing, and analytics.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <span class="text-sm font-medium">4.6</span>
+                                <span class="text-gray-500 text-sm">(980)</span>
+                            </div>
+                            <span class="text-cyan-400 font-bold">$49.99</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 data-aos="fade-up" class="text-4xl md:text-5xl font-bold mb-4">
+                    Our <span class="gradient-text">Services</span>
+                </h2>
+                <p data-aos="fade-up" data-aos-delay="100" class="text-xl text-gray-400 max-w-2xl mx-auto">
+                    End-to-end solutions for your digital transformation journey
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Service 1 -->
+                <div data-aos="fade-up" data-aos-delay="100" class="service-card glass-card p-8">
+                    <div class="w-16 h-16 mb-6 bg-gradient-to-br from-cyan-400/20 to-blue-600/20 rounded-2xl flex items-center justify-center">
+                        <i class="fas fa-code text-3xl text-cyan-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Web Development</h3>
+                    <p class="text-gray-400 mb-4">Custom web applications built with React, Node.js, and modern technologies.</p>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><i class="fas fa-check text-cyan-400 mr-2"></i>React & Next.js</li>
+                        <li><i class="fas fa-check text-cyan-400 mr-2"></i>Node.js & Python</li>
+                        <li><i class="fas fa-check text-cyan-400 mr-2"></i>Cloud Deployment</li>
+                    </ul>
+                </div>
+                
+                <!-- Service 2 -->
+                <div data-aos="fade-up" data-aos-delay="200" class="service-card glass-card p-8">
+                    <div class="w-16 h-16 mb-6 bg-gradient-to-br from-purple-400/20 to-pink-600/20 rounded-2xl flex items-center justify-center">
+                        <i class="fas fa-mobile-alt text-3xl text-purple-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Mobile Apps</h3>
+                    <p class="text-gray-400 mb-4">Native and cross-platform mobile applications for iOS and Android.</p>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><i class="fas fa-check text-purple-400 mr-2"></i>Flutter & React Native</li>
+                        <li><i class="fas fa-check text-purple-400 mr-2"></i>iOS & Android</li>
+                        <li><i class="fas fa-check text-purple-400 mr-2"></i>App Store Publishing</li>
+                    </ul>
+                </div>
+                
+                <!-- Service 3 -->
+                <div data-aos="fade-up" data-aos-delay="300" class="service-card glass-card p-8">
+                    <div class="w-16 h-16 mb-6 bg-gradient-to-br from-green-400/20 to-emerald-600/20 rounded-2xl flex items-center justify-center">
+                        <i class="fas fa-brain text-3xl text-green-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">AI & ML Solutions</h3>
+                    <p class="text-gray-400 mb-4">Intelligent systems powered by machine learning and deep learning.</p>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>Chatbots & NLP</li>
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>Predictive Analytics</li>
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>Computer Vision</li>
+                    </ul>
+                </div>
+                
+                <!-- Service 4 -->
+                <div data-aos="fade-up" data-aos-delay="400" class="service-card glass-card p-8">
+                    <div class="w-16 h-16 mb-6 bg-gradient-to-br from-orange-400/20 to-red-600/20 rounded-2xl flex items-center justify-center">
+                        <i class="fas fa-cloud text-3xl text-orange-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Cloud Services</h3>
+                    <p class="text-gray-400 mb-4">Scalable cloud infrastructure on AWS, Azure, and Google Cloud.</p>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><i class="fas fa-check text-orange-400 mr-2"></i>AWS & Azure</li>
+                        <li><i class="fas fa-check text-orange-400 mr-2"></i>DevOps & CI/CD</li>
+                        <li><i class="fas fa-check text-orange-400 mr-2"></i>Kubernetes</li>
+                    </ul>
+                </div>
+                
+                <!-- Service 5 -->
+                <div data-aos="fade-up" data-aos-delay="500" class="service-card glass-card p-8">
+                    <div class="w-16 h-16 mb-6 bg-gradient-to-br from-red-400/20 to-pink-600/20 rounded-2xl flex items-center justify-center">
+                        <i class="fas fa-shield-alt text-3xl text-red-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Cyber Security</h3>
+                    <p class="text-gray-400 mb-4">Protect your digital assets with comprehensive security solutions.</p>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><i class="fas fa-check text-red-400 mr-2"></i>Security Audits</li>
+                        <li><i class="fas fa-check text-red-400 mr-2"></i>Penetration Testing</li>
+                        <li><i class="fas fa-check text-red-400 mr-2"></i>Compliance</li>
+                    </ul>
+                </div>
+                
+                <!-- Service 6 -->
+                <div data-aos="fade-up" data-aos-delay="600" class="service-card glass-card p-8">
+                    <div class="w-16 h-16 mb-6 bg-gradient-to-br from-pink-400/20 to-rose-600/20 rounded-2xl flex items-center justify-center">
+                        <i class="fas fa-paint-brush text-3xl text-pink-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">UI/UX Design</h3>
+                    <p class="text-gray-400 mb-4">Beautiful, intuitive designs that delight users and drive conversions.</p>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><i class="fas fa-check text-pink-400 mr-2"></i>User Research</li>
+                        <li><i class="fas fa-check text-pink-400 mr-2"></i>Wireframing</li>
+                        <li><i class="fas fa-check text-pink-400 mr-2"></i>Prototyping</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Internships Section -->
+    <section id="internships" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 data-aos="fade-up" class="text-4xl md:text-5xl font-bold mb-4">
+                    Featured <span class="gradient-text">Internships</span>
+                </h2>
+                <p data-aos="fade-up" data-aos-delay="100" class="text-xl text-gray-400 max-w-2xl mx-auto">
+                    Gain real-world experience with top companies worldwide
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Internship 1 -->
+                <div data-aos="fade-up" data-aos-delay="100" class="glass-card p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                            <i class="fab fa-google text-white text-xl"></i>
+                        </div>
+                        <span class="px-3 py-1 bg-green-500/20 text-green-400 text-xs font-medium rounded-full">Remote</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Frontend Developer Intern</h3>
+                    <p class="text-gray-400 text-sm mb-4">Google - Mountain View, CA</p>
+                    <div class="flex items-center space-x-4 text-sm text-gray-500 mb-4">
+                        <span><i class="fas fa-money-bill-wave mr-1"></i>$5,000/mo</span>
+                        <span><i class="fas fa-clock mr-1"></i>6 months</span>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-gray-800 text-gray-400 text-xs rounded">React</span>
+                        <span class="px-2 py-1 bg-gray-800 text-gray-400 text-xs rounded">TypeScript</span>
+                        <span class="px-2 py-1 bg-gray-800 text-gray-400 text-xs rounded">Next.js</span>
+                    </div>
+                    <button class="w-full py-2.5 rounded-lg bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500 hover:text-white transition-colors font-medium">
+                        Apply Now
+                    </button>
+                </div>
+                
+                <!-- Internship 2 -->
+                <div data-aos="fade-up" data-aos-delay="200" class="glass-card p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                            <i class="fab fa-meta text-white text-xl"></i>
+                        </div>
+                        <span class="px-3 py-1 bg-green-500/20 text-green-400 text-xs font-medium rounded-full">Remote</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">ML Engineer Intern</h3>
+                    <p class="text-gray-400 text-sm mb-4">Meta - Menlo Park, CA</p>
+                    <div class="flex items-center space-x-4 text-sm text-gray-500 mb-4">
+                        <span><i class="fas fa-money-bill-wave mr-1"></i>$7,000/mo</span>
+                        <span><i class="fas fa-clock mr-1"></i>4 months</span>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-gray-800 text-gray-400 text-xs rounded">Python</span>
+                        <span class="px-2 py-1 bg-gray-800 text-gray-400 text-xs rounded">PyTorch</span>
+                        <span class="px-2 py-1 bg-gray-800 text-gray-400 text-xs rounded">NLP</span>
+                    </div>
+                    <button class="w-full py-2.5 rounded-lg bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500 hover:text-white transition-colors font-medium">
+                        Apply Now
+                    </button>
+                </div>
+                
+                <!-- Internship 3 -->
+                <div data-aos="fade-up" data-aos-delay="300" class="glass-card p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
+                            <i class="fab fa-aws text-white text-xl"></i>
+                        </div>
+                        <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-medium rounded-full">Hybrid</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Cloud Architect Intern</h3>
+                    <p class="text-gray-400 text-sm mb-4">Amazon - Seattle, WA</p>
+                    <div class="flex items-center space-x-4 text-sm text-gray-500 mb-4">
+                        <span><i class="fas fa-money-bill-wave mr-1"></i>$6,500/mo</span>
+                        <span><i class="fas fa-clock mr-1"></i>6 months</span>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-gray-800 text-gray-400 text-xs rounded">AWS</span>
+                        <span class="px-2 py-1 bg-gray-800 text-gray-400 text-xs rounded">Terraform</span>
+                        <span class="px-2 py-1 bg-gray-800 text-gray-400 text-xs rounded">K8s</span>
+                    </div>
+                    <button class="w-full py-2.5 rounded-lg bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500 hover:text-white transition-colors font-medium">
+                        Apply Now
+                    </button>
+                </div>
+            </div>
+            
+            <div data-aos="fade-up" data-aos-delay="400" class="text-center mt-10">
+                <a href="/internships" class="inline-flex items-center space-x-2 text-cyan-400 hover:text-cyan-300">
+                    <span>View All Internships</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Tech Stack Section -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 data-aos="fade-up" class="text-4xl md:text-5xl font-bold mb-4">
+                    Technologies We <span class="gradient-text">Teach & Use</span>
+                </h2>
+                <p data-aos="fade-up" data-aos-delay="100" class="text-xl text-gray-400">
+                    Master the tools that power the modern web
+                </p>
+            </div>
+            
+            <!-- Tech Icons Grid -->
+            <div data-aos="fade-up" data-aos-delay="200" class="flex flex-wrap justify-center gap-8 md:gap-12">
+                <div class="tech-icon w-16 h-16 md:w-20 md:h-20 glass-card flex items-center justify-center">
+                    <i class="fab fa-react text-3xl md:text-4xl text-cyan-400"></i>
+                </div>
+                <div class="tech-icon w-16 h-16 md:w-20 md:h-20 glass-card flex items-center justify-center">
+                    <i class="fab fa-node-js text-3xl md:text-4xl text-green-400"></i>
+                </div>
+                <div class="tech-icon w-16 h-16 md:w-20 md:h-20 glass-card flex items-center justify-center">
+                    <i class="fab fa-python text-3xl md:text-4xl text-yellow-400"></i>
+                </div>
+                <div class="tech-icon w-16 h-16 md:w-20 md:h-20 glass-card flex items-center justify-center">
+                    <i class="fab fa-aws text-3xl md:text-4xl text-orange-400"></i>
+                </div>
+                <div class="tech-icon w-16 h-16 md:w-20 md:h-20 glass-card flex items-center justify-center">
+                    <i class="fab fa-docker text-3xl md:text-4xl text-blue-400"></i>
+                </div>
+                <div class="tech-icon w-16 h-16 md:w-20 md:h-20 glass-card flex items-center justify-center">
+                    <i class="fab fa-angular text-3xl md:text-4xl text-red-400"></i>
+                </div>
+                <div class="tech-icon w-16 h-16 md:w-20 md:h-20 glass-card flex items-center justify-center">
+                    <i class="fab fa-vuejs text-3xl md:text-4xl text-green-400"></i>
+                </div>
+                <div class="tech-icon w-16 h-16 md:w-20 md:h-20 glass-card flex items-center justify-center">
+                    <i class="fab fa-git-alt text-3xl md:text-4xl text-orange-400"></i>
+                </div>
+                <div class="tech-icon w-16 h-16 md:w-20 md:h-20 glass-card flex items-center justify-center">
+                    <i class="fab fa-figma text-3xl md:text-4xl text-purple-400"></i>
+                </div>
+                <div class="tech-icon w-16 h-16 md:w-20 md:h-20 glass-card flex items-center justify-center">
+                    <i class="fab fa-linux text-3xl md:text-4xl text-yellow-400"></i>
+                </div>
+                <div class="tech-icon w-16 h-16 md:w-20 md:h-20 glass-card flex items-center justify-center">
+                    <i class="fas fa-database text-3xl md:text-4xl text-blue-400"></i>
+                </div>
+                <div class="tech-icon w-16 h-16 md:w-20 md:h-20 glass-card flex items-center justify-center">
+                    <i class="fab fa-js text-3xl md:text-4xl text-yellow-400"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 data-aos="fade-up" class="text-4xl md:text-5xl font-bold mb-4">
+                    Success <span class="gradient-text">Stories</span>
+                </h2>
+                <p data-aos="fade-up" data-aos-delay="100" class="text-xl text-gray-400">
+                    Hear from our students who transformed their careers
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Testimonial 1 -->
+                <div data-aos="fade-up" data-aos-delay="100" class="testimonial-card glass-card p-8">
+                    <div class="flex items-center space-x-1 mb-4">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-300 mb-6">
+                        "DigitalEdge transformed my career. The React course was comprehensive, and the internship placement helped me land my dream job at Google."
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face" alt="Sarah" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <div class="font-semibold">Sarah Johnson</div>
+                            <div class="text-sm text-gray-500">Frontend Developer at Google</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div data-aos="fade-up" data-aos-delay="200" class="testimonial-card glass-card p-8">
+                    <div class="flex items-center space-x-1 mb-4">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-300 mb-6">
+                        "The ML course was exceptional. The hands-on projects and mentorship helped me transition from a software engineer to an ML engineer at Meta."
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Michael" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <div class="font-semibold">Michael Chen</div>
+                            <div class="text-sm text-gray-500">ML Engineer at Meta</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div data-aos="fade-up" data-aos-delay="300" class="testimonial-card glass-card p-8">
+                    <div class="flex items-center space-x-1 mb-4">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-300 mb-6">
+                        "From zero coding experience to a full-stack developer in 6 months. The structured learning path and internship were game-changers for me."
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face" alt="Emily" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <div class="font-semibold">Emily Rodriguez</div>
+                            <div class="text-sm text-gray-500">Full Stack Developer at Stripe</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Client Logos Marquee -->
+    <section class="py-16 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+            <p data-aos="fade-up" class="text-center text-gray-500 text-sm uppercase tracking-wider">
+                Trusted by industry leaders
+            </p>
+        </div>
+        
+        <div class="relative">
+            <div class="marquee flex items-center space-x-16 whitespace-nowrap">
+                <i class="fab fa-google text-4xl text-gray-600 hover:text-white transition-colors"></i>
+                <i class="fab fa-microsoft text-4xl text-gray-600 hover:text-white transition-colors"></i>
+                <i class="fab fa-amazon text-4xl text-gray-600 hover:text-white transition-colors"></i>
+                <i class="fab fa-meta text-4xl text-gray-600 hover:text-white transition-colors"></i>
+                <i class="fab fa-apple text-4xl text-gray-600 hover:text-white transition-colors"></i>
+                <i class="fab fa-netflix text-4xl text-gray-600 hover:text-white transition-colors"></i>
+                <i class="fab fa-spotify text-4xl text-gray-600 hover:text-white transition-colors"></i>
+                <i class="fab fa-uber text-4xl text-gray-600 hover:text-white transition-colors"></i>
+                <i class="fab fa-airbnb text-4xl text-gray-600 hover:text-white transition-colors"></i>
+                <i class="fab fa-stripe text-4xl text-gray-600 hover:text-white transition-colors"></i>
+                <!-- Duplicate for seamless loop -->
+                <i class="fab fa-google text-4xl text-gray-600 hover:text-white transition-colors"></i>
+                <i class="fab fa-microsoft text-4xl text-gray-600 hover:text-white transition-colors"></i>
+                <i class="fab fa-amazon text-4xl text-gray-600 hover:text-white transition-colors"></i>
+                <i class="fab fa-meta text-4xl text-gray-600 hover:text-white transition-colors"></i>
+                <i class="fab fa-apple text-4xl text-gray-600 hover:text-white transition-colors"></i>
+                <i class="fab fa-netflix text-4xl text-gray-600 hover:text-white transition-colors"></i>
+                <i class="fab fa-spotify text-4xl text-gray-600 hover:text-white transition-colors"></i>
+                <i class="fab fa-uber text-4xl text-gray-600 hover:text-white transition-colors"></i>
+                <i class="fab fa-airbnb text-4xl text-gray-600 hover:text-white transition-colors"></i>
+                <i class="fab fa-stripe text-4xl text-gray-600 hover:text-white transition-colors"></i>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="py-24 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div data-aos="fade-up" class="glass-card p-12 md:p-16 text-center relative overflow-hidden">
+                <!-- Background Glow -->
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-gradient-to-br from-purple-500/30 to-pink-500/30 rounded-full blur-3xl"></div>
+                
+                <div class="relative z-10">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                        Ready to Start Your <span class="gradient-text">Journey?</span>
+                    </h2>
+                    <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
+                        Join 10,000+ students who have transformed their careers with DigitalEdgeSolutions.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a href="/register" class="neon-btn px-8 py-4 rounded-full text-white font-semibold text-lg">
+                            Get Started for Free
+                        </a>
+                        <a href="/contact" class="glass-card px-8 py-4 rounded-full text-white font-semibold text-lg hover:bg-white/10 transition-colors">
+                            Talk to an Advisor
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-16 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+                <!-- Brand -->
+                <div class="lg:col-span-2">
+                    <a href="#" class="flex items-center space-x-3 mb-6">
+                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
+                            <i class="fas fa-graduation-cap text-white text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold gradient-text">DigitalEdge</span>
+                    </a>
+                    <p class="text-gray-400 mb-6 max-w-sm">
+                        Empowering the next generation of tech professionals through quality education and real-world experience.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 glass-card flex items-center justify-center text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 glass-card flex items-center justify-center text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 glass-card flex items-center justify-center text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 glass-card flex items-center justify-center text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Links -->
+                <div>
+                    <h4 class="font-semibold mb-4">Company</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Press</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Courses</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Internships</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Mentorship</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Community</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Support</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row items-center justify-between">
+                <p class="text-gray-500 text-sm">
+                    © 2024 DigitalEdgeSolutions. All rights reserved.
+                </p>
+                <div class="flex items-center space-x-6 mt-4 md:mt-0">
+                    <span class="text-gray-500 text-sm flex items-center">
+                        <i class="fas fa-globe mr-2"></i>
+                        English
+                    </span>
+                    <span class="text-gray-500 text-sm">
+                        Made with <i class="fas fa-heart text-red-500 mx-1"></i> worldwide
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS Animation
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // Navigation Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+        
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('open');
+        });
+        
+        closeMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+        });
+        
+        // Counter Animation
+        const counters = document.querySelectorAll('.counter');
+        const animateCounter = (counter) => {
+            const target = parseInt(counter.getAttribute('data-target'));
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+            
+            const updateCounter = () => {
+                current += step;
+                if (current < target) {
+                    counter.textContent = Math.floor(current).toLocaleString() + '+';
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    counter.textContent = target.toLocaleString() + '+';
+                }
+            };
+            
+            updateCounter();
+        };
+        
+        // Intersection Observer for counters
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        counters.forEach(counter => counterObserver.observe(counter));
+        
+        // Course Category Filter
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const courseCards = document.querySelectorAll('.course-card');
+        
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active state
+                categoryBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-cyan-500', 'text-white');
+                    b.classList.add('glass-card', 'text-gray-300');
+                });
+                btn.classList.add('active', 'bg-cyan-500', 'text-white');
+                btn.classList.remove('glass-card', 'text-gray-300');
+                
+                // Filter courses
+                const category = btn.getAttribute('data-category');
+                courseCards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                        card.style.animation = 'fadeIn 0.5s ease';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Particle Background
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let particles = [];
+        const particleCount = 50;
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+            
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            
+            draw() {
+                ctx.fillStyle = `rgba(139, 92, 246, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+        
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            
+            // Draw connections
+            particles.forEach((a, i) => {
+                particles.slice(i + 1).forEach(b => {
+                    const dx = a.x - b.x;
+                    const dy = a.y - b.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        ctx.strokeStyle = `rgba(139, 92, 246, ${0.1 * (1 - distance / 100)})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(a.x, a.y);
+                        ctx.lineTo(b.x, b.y);
+                        ctx.stroke();
+                    }
+                });
+            });
+            
+            requestAnimationFrame(animateParticles);
+        }
+        
+        resizeCanvas();
+        initParticles();
+        animateParticles();
+        
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+        
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

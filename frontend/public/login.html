@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - DigitalEdgeSolutions</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #0F172A 100%);
+            min-height: 100vh;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .neon-btn {
+            background: linear-gradient(135deg, #06B6D4 0%, #0891B2 100%);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .neon-btn:hover {
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.8);
+        }
+        
+        .input-field {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            border-color: #06B6D4;
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+        }
+        
+        .social-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Background Animation */
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        
+        .loader {
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #06B6D4;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4">
+    <!-- Background Shapes -->
+    <div class="bg-shape w-96 h-96 bg-purple-500 top-0 left-0"></div>
+    <div class="bg-shape w-96 h-96 bg-cyan-500 bottom-0 right-0" style="animation-delay: -5s;"></div>
+    <div class="bg-shape w-64 h-64 bg-pink-500 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style="animation-delay: -10s;"></div>
+    
+    <!-- Main Container -->
+    <div class="relative z-10 w-full max-w-md">
+        <!-- Logo -->
+        <div class="text-center mb-8">
+            <a href="/" class="inline-flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
+                    <i class="fas fa-graduation-cap text-white text-2xl"></i>
+                </div>
+                <span class="text-2xl font-bold gradient-text">DigitalEdge</span>
+            </a>
+        </div>
+        
+        <!-- Login Card -->
+        <div class="glass-card rounded-2xl p-8">
+            <h1 class="text-2xl font-bold text-white text-center mb-2">Welcome Back</h1>
+            <p class="text-gray-400 text-center mb-8">Sign in to continue your learning journey</p>
+            
+            <!-- Error Message -->
+            <div id="error-message" class="hidden mb-4 p-4 bg-red-500/10 border border-red-500/30 rounded-lg">
+                <p class="text-red-400 text-sm flex items-center">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <span id="error-text"></span>
+                </p>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="login-form" class="space-y-5">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                    <div class="relative">
+                        <i class="fas fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            class="input-field w-full pl-12 pr-4 py-3 rounded-xl text-white placeholder-gray-500 focus:outline-none"
+                            placeholder="you@example.com"
+                            required
+                        >
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Password</label>
+                    <div class="relative">
+                        <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            class="input-field w-full pl-12 pr-12 py-3 rounded-xl text-white placeholder-gray-500 focus:outline-none"
+                            placeholder="Enter your password"
+                            required
+                        >
+                        <button type="button" id="toggle-password" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="checkbox" id="remember" class="w-4 h-4 rounded border-gray-600 bg-gray-700 text-cyan-500 focus:ring-cyan-500">
+                        <span class="text-sm text-gray-400">Remember me</span>
+                    </label>
+                    <a href="/forgot-password" class="text-sm text-cyan-400 hover:text-cyan-300">Forgot password?</a>
+                </div>
+                
+                <button type="submit" id="submit-btn" class="neon-btn w-full py-3 rounded-xl text-white font-semibold flex items-center justify-center space-x-2">
+                    <span>Sign In</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+            
+            <!-- Divider -->
+            <div class="relative my-6">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-700"></div>
+                </div>
+                <div class="relative flex justify-center">
+                    <span class="px-4 bg-gray-900 text-gray-500 text-sm">Or continue with</span>
+                </div>
+            </div>
+            
+            <!-- Social Login -->
+            <div class="grid grid-cols-3 gap-3">
+                <button class="social-btn glass-card py-3 rounded-xl flex items-center justify-center text-white">
+                    <i class="fab fa-google text-xl"></i>
+                </button>
+                <button class="social-btn glass-card py-3 rounded-xl flex items-center justify-center text-white">
+                    <i class="fab fa-linkedin text-xl"></i>
+                </button>
+                <button class="social-btn glass-card py-3 rounded-xl flex items-center justify-center text-white">
+                    <i class="fab fa-github text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Sign Up Link -->
+            <p class="text-center mt-6 text-gray-400">
+                Don't have an account? 
+                <a href="/register" class="text-cyan-400 hover:text-cyan-300 font-medium">Sign up</a>
+            </p>
+        </div>
+        
+        <!-- Back to Home -->
+        <div class="text-center mt-6">
+            <a href="/" class="text-gray-500 hover:text-gray-300 text-sm flex items-center justify-center space-x-2">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back to home</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- 2FA Modal -->
+    <div id="2fa-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" id="modal-backdrop"></div>
+        <div class="relative glass-card rounded-2xl p-8 w-full max-w-md">
+            <button id="close-modal" class="absolute top-4 right-4 text-gray-500 hover:text-white">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            
+            <div class="text-center">
+                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-cyan-400/20 to-blue-600/20 rounded-2xl flex items-center justify-center">
+                    <i class="fas fa-shield-alt text-3xl text-cyan-400"></i>
+                </div>
+                <h2 class="text-xl font-bold text-white mb-2">Two-Factor Authentication</h2>
+                <p class="text-gray-400 mb-6">Enter the 6-digit code from your authenticator app</p>
+                
+                <form id="2fa-form" class="space-y-4">
+                    <input type="hidden" id="temp-token">
+                    <div class="flex justify-center space-x-3">
+                        <input type="text" maxlength="1" class="2fa-code w-12 h-14 text-center text-2xl font-bold bg-gray-800 border border-gray-700 rounded-xl text-white focus:border-cyan-500 focus:outline-none" data-index="0">
+                        <input type="text" maxlength="1" class="2fa-code w-12 h-14 text-center text-2xl font-bold bg-gray-800 border border-gray-700 rounded-xl text-white focus:border-cyan-500 focus:outline-none" data-index="1">
+                        <input type="text" maxlength="1" class="2fa-code w-12 h-14 text-center text-2xl font-bold bg-gray-800 border border-gray-700 rounded-xl text-white focus:border-cyan-500 focus:outline-none" data-index="2">
+                        <input type="text" maxlength="1" class="2fa-code w-12 h-14 text-center text-2xl font-bold bg-gray-800 border border-gray-700 rounded-xl text-white focus:border-cyan-500 focus:outline-none" data-index="3">
+                        <input type="text" maxlength="1" class="2fa-code w-12 h-14 text-center text-2xl font-bold bg-gray-800 border border-gray-700 rounded-xl text-white focus:border-cyan-500 focus:outline-none" data-index="4">
+                        <input type="text" maxlength="1" class="2fa-code w-12 h-14 text-center text-2xl font-bold bg-gray-800 border border-gray-700 rounded-xl text-white focus:border-cyan-500 focus:outline-none" data-index="5">
+                    </div>
+                    
+                    <button type="submit" class="neon-btn w-full py-3 rounded-xl text-white font-semibold">
+                        Verify
+                    </button>
+                </form>
+                
+                <p class="mt-4 text-sm text-gray-500">
+                    Lost access to your authenticator? 
+                    <a href="#" class="text-cyan-400 hover:text-cyan-300">Use backup code</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Toggle Password Visibility
+        const togglePassword = document.getElementById('toggle-password');
+        const passwordInput = document.getElementById('password');
+        
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            togglePassword.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+        });
+        
+        // Login Form Submit
+        const loginForm = document.getElementById('login-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const errorMessage = document.getElementById('error-message');
+        const errorText = document.getElementById('error-text');
+        
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Show loading
+            submitBtn.innerHTML = '<div class="loader"></div>';
+            submitBtn.disabled = true;
+            errorMessage.classList.add('hidden');
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Check if 2FA is required
+                    if (data.data.two_factor_required) {
+                        document.getElementById('temp-token').value = data.data.temp_token;
+                        document.getElementById('2fa-modal').classList.remove('hidden');
+                        document.querySelector('.2fa-code[data-index="0"]').focus();
+                    } else {
+                        // Store tokens
+                        localStorage.setItem('access_token', data.data.tokens.access_token);
+                        localStorage.setItem('refresh_token', data.data.tokens.refresh_token);
+                        localStorage.setItem('user', JSON.stringify(data.data.user));
+                        
+                        // Redirect based on role
+                        redirectBasedOnRole(data.data.user.role);
+                    }
+                } else {
+                    showError(data.message || 'Login failed');
+                }
+            } catch (error) {
+                showError('Network error. Please try again.');
+            } finally {
+                submitBtn.innerHTML = '<span>Sign In</span><i class="fas fa-arrow-right"></i>';
+                submitBtn.disabled = false;
+            }
+        });
+        
+        function showError(message) {
+            errorText.textContent = message;
+            errorMessage.classList.remove('hidden');
+            document.querySelector('.glass-card').classList.add('shake');
+            setTimeout(() => {
+                document.querySelector('.glass-card').classList.remove('shake');
+            }, 500);
+        }
+        
+        function redirectBasedOnRole(role) {
+            switch(role) {
+                case 'super_admin':
+                case 'admin':
+                case 'sub_admin':
+                    window.location.href = '/admin/dashboard';
+                    break;
+                case 'employee':
+                    window.location.href = '/employee/dashboard';
+                    break;
+                case 'student':
+                    window.location.href = '/student/dashboard';
+                    break;
+                case 'corporate_client':
+                    window.location.href = '/client/dashboard';
+                    break;
+                default:
+                    window.location.href = '/';
+            }
+        }
+        
+        // 2FA Code Input Handling
+        const codeInputs = document.querySelectorAll('.2fa-code');
+        
+        codeInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length === 1) {
+                    if (index < codeInputs.length - 1) {
+                        codeInputs[index + 1].focus();
+                    }
+                }
+            });
+            
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    codeInputs[index - 1].focus();
+                }
+            });
+            
+            input.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const pastedData = e.clipboardData.getData('text').slice(0, 6);
+                codeInputs.forEach((inp, i) => {
+                    inp.value = pastedData[i] || '';
+                });
+            });
+        });
+        
+        // 2FA Form Submit
+        const twoFAForm = document.getElementById('2fa-form');
+        
+        twoFAForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const code = Array.from(codeInputs).map(input => input.value).join('');
+            const tempToken = document.getElementById('temp-token').value;
+            
+            if (code.length !== 6) {
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/auth/2fa/verify', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ temp_token: tempToken, code })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    localStorage.setItem('access_token', data.data.tokens.access_token);
+                    localStorage.setItem('refresh_token', data.data.tokens.refresh_token);
+                    localStorage.setItem('user', JSON.stringify(data.data.user));
+                    redirectBasedOnRole(data.data.user.role);
+                } else {
+                    alert(data.message || 'Invalid code');
+                }
+            } catch (error) {
+                alert('Network error. Please try again.');
+            }
+        });
+        
+        // Close Modal
+        document.getElementById('close-modal').addEventListener('click', () => {
+            document.getElementById('2fa-modal').classList.add('hidden');
+        });
+        
+        document.getElementById('modal-backdrop').addEventListener('click', () => {
+            document.getElementById('2fa-modal').classList.add('hidden');
+        });
+        
+        // Social Login Handlers
+        document.querySelectorAll('.social-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                alert('Social login integration coming soon!');
+            });
+        });
+    </script>
+</body>
+</html>

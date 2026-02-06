@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  # PHP + Apache Server
+  app:
+    image: php:8.2-apache
+    container_name: des-app
+    ports:
+      - "80:80"
+    volumes:
+      - ./backend:/var/www/html
+      - ./frontend/public:/var/www/html/public
+    networks:
+      - des-network
+    depends_on:
+      - db
+
+  # MySQL Database
+  db:
+    image: mysql:8.0
+    container_name: des-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass123
+      MYSQL_DATABASE: digitaledgesolutions
+      MYSQL_USER: des_user
+      MYSQL_PASSWORD: des_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/migrations:/docker-entrypoint-initdb.d
+    networks:
+      - des-network
+
+  # phpMyAdmin (Database manage karne ke liye)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: des-phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    ports:
+      - "8080:80"
+    networks:
+      - des-network
+
+volumes:
+  mysql_data:
+
+networks:
+  des-network:
+    driver: bridge
