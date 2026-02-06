@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: digitaledgesolutions
+    runtime: php
+    buildCommand: |
+      # Install PHP extensions if needed
+      apt-get update && apt-get install -y libpq-dev
+      docker-php-ext-install pdo pdo_pgsql pgsql
+    startCommand: |
+      php -S 0.0.0.0:10000 index.php
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: digitaledgesolutions-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: APP_ENV
+        value: production
+
+databases:
+  - name: digitaledgesolutions-db
+    databaseName: digitaledgesolutions
+    user: digitaledgesolutions
+    plan: free
